@@ -20,9 +20,13 @@
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
     .border-l-alarm { border-left-width: 4px; }
     .nav-item { transition: background 0.15s, color 0.15s; cursor: pointer; }
-    .page { display: none; height: 100vh; overflow: hidden; }
+    .page { display: none; height: 100vh; overflow: hidden; width: 100%; min-width: 0; }
     .page.active { display: flex; }
+    .page > main { min-width: 0; flex: 1 1 0%; }
     body { overflow: hidden; }
+    html { overflow-x: hidden; }
+    .magaza-table { table-layout: fixed; width: 100%; }
+    .magaza-table th, .magaza-table td { overflow: hidden; }
   </style>
 </head>
 <body class="text-sm bg-gray-50">
@@ -1596,18 +1600,18 @@
     </div>
   </aside>
 
-  <main class="flex-1 flex flex-col h-screen overflow-hidden">
-    <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
-      <div class="flex items-center gap-3">
-        <button class="p-1.5 rounded-md text-gray-400 hover:bg-gray-100"><i data-lucide="menu" class="w-5 h-5"></i></button>
-        <div>
+  <main class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
+    <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between flex-shrink-0 gap-2">
+      <div class="flex items-center gap-3 min-w-0">
+        <button class="p-1.5 rounded-md text-gray-400 hover:bg-gray-100 flex-shrink-0"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <div class="min-w-0">
           <h1 class="text-lg font-semibold text-gray-800">Siparişler</h1>
-          <p class="text-[11px] text-gray-400">Tüm siparişlerinizi görüntüleyin, arayın ve durumlarını takip edin.</p>
+          <p class="text-[11px] text-gray-400 truncate">Tüm siparişlerinizi görüntüleyin, arayın ve durumlarını takip edin.</p>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button class="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50">
-          <i data-lucide="store" class="w-4 h-4 text-gray-400"></i>New York Store<i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <button class="flex items-center gap-2 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs text-gray-700 hover:bg-gray-50">
+          <i data-lucide="store" class="w-4 h-4 text-gray-400"></i><span class="hidden md:inline">New York Store</span><i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
         </button>
         <div class="relative">
           <button class="p-2 rounded-lg text-gray-400 hover:bg-gray-100"><i data-lucide="bell" class="w-5 h-5"></i></button>
@@ -1615,19 +1619,19 @@
         </div>
         <button class="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-2 py-1.5">
           <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0">NY</div>
-          <div class="text-left">
+          <div class="text-left hidden sm:block">
             <div class="text-xs font-semibold text-gray-800 leading-tight">New York Store</div>
             <div class="text-[11px] text-gray-500">Mağaza Sahibi</div>
           </div>
-          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400 hidden sm:block"></i>
         </button>
       </div>
     </header>
 
-    <div class="flex-1 overflow-y-auto p-6 bg-gray-50 space-y-4">
+    <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-gray-50 space-y-4 min-w-0">
 
       <!-- Stat filter cards -->
-      <div class="grid grid-cols-6 gap-3">
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
         <button class="bg-white rounded-xl p-3.5 border-2 border-blue-500 shadow-sm text-left">
           <div class="flex items-center justify-between mb-2">
             <span class="text-[11px] text-gray-500 font-medium">Tümü</span>
@@ -1674,7 +1678,7 @@
 
       <!-- Table card -->
       <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div class="px-5 py-3.5 border-b border-gray-100 flex items-center gap-2 flex-wrap">
+        <div class="px-4 py-3 border-b border-gray-100 flex items-center gap-2 flex-wrap">
           <div class="relative flex-1 min-w-[200px]">
             <i data-lucide="search" class="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2"></i>
             <input type="text" placeholder="Sipariş No, Müşteri Adı veya SKU ile ara..."
@@ -1697,163 +1701,176 @@
           </button>
         </div>
 
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[1200px]">
+        <div class="min-w-0">
+          <table class="magaza-table w-full text-[10px]">
+            <colgroup>
+              <col style="width:7%" />
+              <col style="width:9%" />
+              <col style="width:14%" />
+              <col style="width:4%" />
+              <col style="width:8%" />
+              <col style="width:9%" />
+              <col style="width:8%" />
+              <col style="width:8%" />
+              <col style="width:10%" />
+              <col style="width:8%" />
+              <col style="width:7%" />
+            </colgroup>
             <thead class="bg-gray-50">
               <tr>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-4 py-3 uppercase tracking-wide whitespace-nowrap">Sipariş No</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Müşteri</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Ürün Bilgisi</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Ürün Adedi</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Durum</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Üretim Aşaması</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Deadline</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Tahmini Kargoya Teslim</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Kargo Takip No</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Son Güncelleme</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-4 py-3 uppercase tracking-wide whitespace-nowrap">İşlemler</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-2 py-2.5 uppercase">Sipariş No</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Müşteri</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Ürün Bilgisi</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1 py-2.5 uppercase">Adet</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Durum</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Üretim</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Deadline</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Tah. Kargo</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Takip No</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-1.5 py-2.5 uppercase">Güncelleme</th>
+                <th class="text-left text-[10px] font-semibold text-gray-500 px-2 py-2.5 uppercase">Detay</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-50 text-xs">
+            <tbody class="divide-y divide-gray-50 text-[10px]">
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458712</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">John Doe</div><div class="text-[11px] text-gray-400">New York, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: DR-14K-RG-054</div><div class="font-medium text-gray-800">Diamond Ring 14K Rose Gold</div><div class="text-[11px] text-gray-400">Ölçü: 54</div></td>
-                <td class="px-3 py-3 text-gray-700">2</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-700"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Üretimde</span></td>
-                <td class="px-3 py-3 whitespace-nowrap min-w-[120px]"><div class="flex justify-between mb-1"><span class="text-gray-700">Cila</span><span class="text-gray-400">2/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:50%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">07 Haz 2026</div><div class="text-[11px] text-orange-500 font-semibold">(2 gün kaldı)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">09 Haz 2026</div><div class="text-[11px] text-blue-600 font-semibold">(Yarın)</div></td>
-                <td class="px-3 py-3 text-gray-400">—</td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">Bugün 14:32</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458712</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">John Doe</div><div class="text-[9px] text-gray-400 truncate">New York</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">DR-14K-RG-054</div><div class="font-medium text-gray-800 truncate">Diamond Ring 14K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">2</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-blue-100 text-blue-700"><span class="w-1 h-1 rounded-full bg-blue-500"></span>Üretimde</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Cila</span><span class="text-gray-400">2/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:50%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">07 Haz</div><div class="text-[9px] text-orange-500 font-semibold">2 gün</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">09 Haz</div><div class="text-[9px] text-blue-600 font-semibold">Yarın</div></td>
+                <td class="px-1.5 py-2.5 text-gray-400">—</td>
+                <td class="px-1.5 py-2.5 text-gray-500">14:32</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458711</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">Sarah Miller</div><div class="text-[11px] text-gray-400">Brooklyn, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: NK-18K-YG-042</div><div class="font-medium text-gray-800">Gold Necklace 18K</div><div class="text-[11px] text-gray-400">Uzunluk: 45cm</div></td>
-                <td class="px-3 py-3 text-gray-700">1</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-700"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Üretimde</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Kalıp</span><span class="text-gray-400">1/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:25%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">06 Haz 2026</div><div class="text-[11px] text-red-500 font-semibold">(1 gün kaldı)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">08 Haz 2026</div><div class="text-[11px] text-orange-500 font-semibold">(2 gün kaldı)</div></td>
-                <td class="px-3 py-3 text-gray-400">—</td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">Bugün 13:50</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458711</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">Sarah Miller</div><div class="text-[9px] text-gray-400 truncate">Brooklyn</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">NK-18K-YG-042</div><div class="font-medium text-gray-800 truncate">Gold Necklace 18K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">1</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-blue-100 text-blue-700"><span class="w-1 h-1 rounded-full bg-blue-500"></span>Üretimde</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Kalıp</span><span class="text-gray-400">1/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:25%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">06 Haz</div><div class="text-[9px] text-red-500 font-semibold">1 gün</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">08 Haz</div><div class="text-[9px] text-orange-500 font-semibold">2 gün</div></td>
+                <td class="px-1.5 py-2.5 text-gray-400">—</td>
+                <td class="px-1.5 py-2.5 text-gray-500">13:50</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458710</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">David Wilson</div><div class="text-[11px] text-gray-400">Manhattan, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: BR-14K-WG-038</div><div class="font-medium text-gray-800">Bracelet 14K White Gold</div><div class="text-[11px] text-gray-400">Ölçü: 18cm</div></td>
-                <td class="px-3 py-3 text-gray-700">3</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-purple-100 text-purple-700"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Kalite Kontrolde</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Kalite Kontrol</span><span class="text-gray-400">3/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:75%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">05 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Vakti var)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">07 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Vakti var)</div></td>
-                <td class="px-3 py-3 text-gray-400">—</td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">Bugün 13:20</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458710</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">David Wilson</div><div class="text-[9px] text-gray-400 truncate">Manhattan</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">BR-14K-WG-038</div><div class="font-medium text-gray-800 truncate">Bracelet 14K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">3</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-purple-100 text-purple-700"><span class="w-1 h-1 rounded-full bg-purple-500"></span>K.Kontrol</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>K.Kontrol</span><span class="text-gray-400">3/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:75%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">05 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">07 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5 text-gray-400">—</td>
+                <td class="px-1.5 py-2.5 text-gray-500">13:20</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458709</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">Emily Davis</div><div class="text-[11px] text-gray-400">Queens, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: ER-18K-YG-022</div><div class="font-medium text-gray-800">Earring Set 18K Yellow Gold</div></td>
-                <td class="px-3 py-3 text-gray-700">2</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-orange-100 text-orange-700"><span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>Kargoda</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Kargo</span><span class="text-gray-400">4/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-orange-500 rounded-full" style="width:100%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">04 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Vakti var)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">04 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Bugün)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><a href="#" class="text-blue-600 font-medium hover:underline">1Z999AA10123456784</a></td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">Bugün 12:30</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458709</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">Emily Davis</div><div class="text-[9px] text-gray-400 truncate">Queens</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">ER-18K-YG-022</div><div class="font-medium text-gray-800 truncate">Earring Set 18K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">2</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-orange-100 text-orange-700"><span class="w-1 h-1 rounded-full bg-orange-500"></span>Kargoda</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Kargo</span><span class="text-gray-400">4/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-orange-500 rounded-full" style="width:100%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">04 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">04 Haz</div><div class="text-[9px] text-green-600 font-semibold">Bugün</div></td>
+                <td class="px-1.5 py-2.5 truncate"><a href="#" class="text-blue-600 hover:underline">1Z999…6784</a></td>
+                <td class="px-1.5 py-2.5 text-gray-500">12:30</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458708</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">Michael Brown</div><div class="text-[11px] text-gray-400">Staten Island, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: RG-14K-RG-060</div><div class="font-medium text-gray-800">Wedding Ring 14K Rose Gold</div><div class="text-[11px] text-gray-400">Ölçü: 60</div></td>
-                <td class="px-3 py-3 text-gray-700">1</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Teslim Edildi</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Teslim</span><span class="text-gray-400">4/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-green-500 rounded-full" style="width:100%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">03 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Teslim edildi)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">03 Haz 2026</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><a href="#" class="text-blue-600 font-medium hover:underline">1Z999AA10987654321</a></td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">Dün 16:45</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458708</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">Michael Brown</div><div class="text-[9px] text-gray-400 truncate">Staten Is.</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">RG-14K-RG-060</div><div class="font-medium text-gray-800 truncate">Wedding Ring 14K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">1</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-green-100 text-green-700"><span class="w-1 h-1 rounded-full bg-green-500"></span>Teslim</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Teslim</span><span class="text-gray-400">4/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-green-500 rounded-full" style="width:100%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">03 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">03 Haz</div></td>
+                <td class="px-1.5 py-2.5 truncate"><a href="#" class="text-blue-600 hover:underline">1Z999…4321</a></td>
+                <td class="px-1.5 py-2.5 text-gray-500">Dün</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors bg-red-50/30">
-                <td class="px-4 py-3 font-semibold text-red-600 whitespace-nowrap">NY-458707</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-red-700">Jessica Lee</div><div class="text-[11px] text-red-400">Bronx, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: PN-14K-WG-015</div><div class="font-medium text-gray-800">Pendant 14K White Gold</div></td>
-                <td class="px-3 py-3 text-gray-700">2</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-red-100 text-red-700"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Geciken (Süresi Aştı)</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Döküm</span><span class="text-gray-400">1/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-red-500 rounded-full" style="width:25%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-red-600">31 May 2026</div><div class="text-[11px] text-red-500 font-semibold">(Süresi aştı)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-red-600">—</div></td>
-                <td class="px-3 py-3 text-gray-400">—</td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">2 gün önce</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-red-600">NY-458707</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-red-700 truncate">Jessica Lee</div><div class="text-[9px] text-red-400 truncate">Bronx</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">PN-14K-WG-015</div><div class="font-medium text-gray-800 truncate">Pendant 14K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">2</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-red-100 text-red-700"><span class="w-1 h-1 rounded-full bg-red-500"></span>Geciken</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Döküm</span><span class="text-gray-400">1/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-red-500 rounded-full" style="width:25%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-red-600">31 May</div><div class="text-[9px] text-red-500 font-semibold">Aştı</div></td>
+                <td class="px-1.5 py-2.5 text-red-400">—</td>
+                <td class="px-1.5 py-2.5 text-gray-400">—</td>
+                <td class="px-1.5 py-2.5 text-gray-500">2 gün</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458706</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">Robert Taylor</div><div class="text-[11px] text-gray-400">New York, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: CH-18K-YG-010</div><div class="font-medium text-gray-800">Chain 18K Yellow Gold</div><div class="text-[11px] text-gray-400">Uzunluk: 50cm</div></td>
-                <td class="px-3 py-3 text-gray-700">1</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-700"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Üretimde</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Mıhlama</span><span class="text-gray-400">2/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:50%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">10 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(5 gün kaldı)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">12 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Vakti var)</div></td>
-                <td class="px-3 py-3 text-gray-400">—</td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">Dün 09:40</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458706</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">Robert Taylor</div><div class="text-[9px] text-gray-400 truncate">New York</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">CH-18K-YG-010</div><div class="font-medium text-gray-800 truncate">Chain 18K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">1</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-blue-100 text-blue-700"><span class="w-1 h-1 rounded-full bg-blue-500"></span>Üretimde</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Mıhlama</span><span class="text-gray-400">2/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:50%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">10 Haz</div><div class="text-[9px] text-green-600 font-semibold">5 gün</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">12 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5 text-gray-400">—</td>
+                <td class="px-1.5 py-2.5 text-gray-500">Dün</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458705</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">Anna Johnson</div><div class="text-[11px] text-gray-400">Brooklyn, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: DR-18K-WG-048</div><div class="font-medium text-gray-800">Diamond Ring 18K White Gold</div><div class="text-[11px] text-gray-400">Ölçü: 48</div></td>
-                <td class="px-3 py-3 text-gray-700">1</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-purple-100 text-purple-700"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Kalite Kontrolde</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Paketleme</span><span class="text-gray-400">3/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:75%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">08 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Vakti var)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">10 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Vakti var)</div></td>
-                <td class="px-3 py-3 text-gray-400">—</td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">Dün 08:15</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458705</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">Anna Johnson</div><div class="text-[9px] text-gray-400 truncate">Brooklyn</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">DR-18K-WG-048</div><div class="font-medium text-gray-800 truncate">Diamond Ring 18K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">1</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-purple-100 text-purple-700"><span class="w-1 h-1 rounded-full bg-purple-500"></span>K.Kontrol</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Paket</span><span class="text-gray-400">3/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:75%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">08 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">10 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5 text-gray-400">—</td>
+                <td class="px-1.5 py-2.5 text-gray-500">Dün</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458704</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">James Wilson</div><div class="text-[11px] text-gray-400">Manhattan, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: BR-14K-RG-016</div><div class="font-medium text-gray-800">Bangle 14K Rose Gold</div></td>
-                <td class="px-3 py-3 text-gray-700">2</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-orange-100 text-orange-700"><span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>Kargoda</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Kargo</span><span class="text-gray-400">4/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-orange-500 rounded-full" style="width:100%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">02 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Vakti var)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">02 Haz 2026</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><a href="#" class="text-blue-600 font-medium hover:underline">1Z999AA10555555555</a></td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">2 gün önce</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458704</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">James Wilson</div><div class="text-[9px] text-gray-400 truncate">Manhattan</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">BR-14K-RG-016</div><div class="font-medium text-gray-800 truncate">Bangle 14K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">2</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-orange-100 text-orange-700"><span class="w-1 h-1 rounded-full bg-orange-500"></span>Kargoda</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Kargo</span><span class="text-gray-400">4/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-orange-500 rounded-full" style="width:100%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">02 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">02 Haz</div></td>
+                <td class="px-1.5 py-2.5 truncate"><a href="#" class="text-blue-600 hover:underline">1Z999…5555</a></td>
+                <td class="px-1.5 py-2.5 text-gray-500">2 gün</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-4 py-3 font-semibold text-blue-600 whitespace-nowrap">NY-458703</td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-800">Lisa Anderson</div><div class="text-[11px] text-gray-400">Queens, USA</div></td>
-                <td class="px-3 py-3"><div class="text-gray-500 text-[10px]">SKU: ER-14K-RG-008</div><div class="font-medium text-gray-800">Stud Earrings 14K Rose Gold</div></td>
-                <td class="px-3 py-3 text-gray-700">1</td>
-                <td class="px-3 py-3 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Teslim Edildi</span></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="flex justify-between mb-1"><span class="text-gray-700">Teslim</span><span class="text-gray-400">4/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-green-500 rounded-full" style="width:100%"></div></div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">01 Haz 2026</div><div class="text-[11px] text-green-600 font-semibold">(Teslim edildi)</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><div class="font-medium text-gray-700">01 Haz 2026</div></td>
-                <td class="px-3 py-3 whitespace-nowrap"><a href="#" class="text-blue-600 font-medium hover:underline">1Z999AA10444444444</a></td>
-                <td class="px-3 py-3 text-gray-500 whitespace-nowrap">3 gün önce</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-0.5">Detay <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button></td>
+                <td class="px-2 py-2.5 font-semibold text-blue-600">NY-458703</td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-800 truncate">Lisa Anderson</div><div class="text-[9px] text-gray-400 truncate">Queens</div></td>
+                <td class="px-1.5 py-2.5"><div class="text-gray-500 text-[9px] truncate">ER-14K-RG-008</div><div class="font-medium text-gray-800 truncate">Stud Earrings 14K</div></td>
+                <td class="px-1 py-2.5 text-gray-700 text-center">1</td>
+                <td class="px-1.5 py-2.5"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-green-100 text-green-700"><span class="w-1 h-1 rounded-full bg-green-500"></span>Teslim</span></td>
+                <td class="px-1.5 py-2.5"><div class="flex justify-between mb-0.5 text-[9px]"><span>Teslim</span><span class="text-gray-400">4/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-green-500 rounded-full" style="width:100%"></div></div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">01 Haz</div><div class="text-[9px] text-green-600 font-semibold">OK</div></td>
+                <td class="px-1.5 py-2.5"><div class="font-medium text-gray-700">01 Haz</div></td>
+                <td class="px-1.5 py-2.5 truncate"><a href="#" class="text-blue-600 hover:underline">1Z999…4444</a></td>
+                <td class="px-1.5 py-2.5 text-gray-500">3 gün</td>
+                <td class="px-2 py-2.5"><button onclick="showPage('page-magaza-siparis-detay')" class="text-blue-600 font-semibold hover:text-blue-800 whitespace-nowrap">Detay ›</button></td>
               </tr>
 
             </tbody>
@@ -1961,19 +1978,19 @@
     </div>
   </aside>
 
-  <main class="flex-1 flex flex-col h-screen overflow-hidden">
-    <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
-      <div class="flex items-center gap-3">
-        <button class="p-1.5 rounded-md text-gray-400 hover:bg-gray-100"><i data-lucide="menu" class="w-5 h-5"></i></button>
-        <div class="text-xs text-gray-400">
+  <main class="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
+    <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between flex-shrink-0 gap-2">
+      <div class="flex items-center gap-3 min-w-0">
+        <button class="p-1.5 rounded-md text-gray-400 hover:bg-gray-100 flex-shrink-0"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <div class="text-xs text-gray-400 min-w-0">
           <span onclick="showPage('page-magaza-siparis')" class="hover:text-blue-600 cursor-pointer">Siparişler</span>
           <span class="mx-1">›</span>
           <span class="text-gray-600">Sipariş Detayı</span>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button class="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50">
-          <i data-lucide="store" class="w-4 h-4 text-gray-400"></i>New York Store<i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <button class="flex items-center gap-2 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs text-gray-700 hover:bg-gray-50">
+          <i data-lucide="store" class="w-4 h-4 text-gray-400"></i><span class="hidden md:inline">New York Store</span><i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
         </button>
         <div class="relative">
           <button class="p-2 rounded-lg text-gray-400 hover:bg-gray-100"><i data-lucide="bell" class="w-5 h-5"></i></button>
@@ -1981,28 +1998,27 @@
         </div>
         <button class="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-2 py-1.5">
           <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0">NY</div>
-          <div class="text-left">
+          <div class="text-left hidden sm:block">
             <div class="text-xs font-semibold text-gray-800 leading-tight">New York Store</div>
             <div class="text-[11px] text-gray-500">Mağaza Sahibi</div>
           </div>
-          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
         </button>
       </div>
     </header>
 
-    <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
+    <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-gray-50 min-w-0">
 
       <!-- Title row -->
-      <div class="flex items-start justify-between mb-5 flex-wrap gap-3">
-        <div>
-          <div class="flex items-center gap-3 flex-wrap">
-            <h1 class="text-xl font-bold text-gray-800">Sipariş Detayı – NY-458712</h1>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+      <div class="flex items-start justify-between mb-4 flex-wrap gap-3">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-lg font-bold text-gray-800">Sipariş Detayı – NY-458712</h1>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
               <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Üretimde (Cila)
             </span>
           </div>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 flex-shrink-0 flex-wrap">
           <button onclick="showPage('page-magaza-siparis')" class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50">
             <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>Siparişlere Dön
           </button>
@@ -2010,18 +2026,18 @@
             <i data-lucide="printer" class="w-3.5 h-3.5"></i>Yazdır
           </button>
           <button class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i>Excel İndir
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>Excel
           </button>
         </div>
       </div>
 
-      <div class="grid grid-cols-3 gap-5">
+      <div class="flex flex-col xl:flex-row gap-4 min-w-0">
 
-        <!-- LEFT: main content (2 cols) -->
-        <div class="col-span-2 space-y-5">
+        <!-- LEFT: main content -->
+        <div class="flex-1 min-w-0 space-y-4">
 
           <!-- Info cards row -->
-          <div class="grid grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
               <h3 class="text-xs font-semibold text-gray-800 mb-3 flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5 text-gray-400"></i>Sipariş Bilgileri</h3>
               <div class="space-y-2 text-xs">
@@ -2054,63 +2070,63 @@
           </div>
 
           <!-- Production timeline -->
-          <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-            <h3 class="text-sm font-semibold text-gray-800 mb-5">Üretim Aşamaları</h3>
-            <div class="flex items-start justify-between relative px-2">
-              <div class="absolute top-4 left-8 right-8 h-0.5 bg-gray-200 z-0"></div>
-              <div class="absolute top-4 left-8 h-0.5 bg-green-500 z-0" style="width:37%"></div>
+          <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm overflow-hidden">
+            <h3 class="text-sm font-semibold text-gray-800 mb-4">Üretim Aşamaları</h3>
+            <div class="flex items-start justify-between relative px-1 min-w-0">
+              <div class="absolute top-3 left-4 right-4 h-0.5 bg-gray-200 z-0"></div>
+              <div class="absolute top-3 left-4 h-0.5 bg-green-500 z-0" style="width:37%"></div>
 
               <!-- Stage: Sipariş Alındı -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center mb-2"><i data-lucide="check" class="w-4 h-4 text-white"></i></div>
-                <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Sipariş<br>Alındı</span>
-                <span class="text-[9px] text-gray-400 mt-1">05 Haz 09:20</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mb-1.5"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+                <span class="text-[9px] font-semibold text-gray-700 text-center leading-tight">Sipariş Alındı</span>
+                <span class="text-[8px] text-gray-400 mt-0.5">05 Haz</span>
               </div>
               <!-- Kalıp -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center mb-2"><i data-lucide="check" class="w-4 h-4 text-white"></i></div>
-                <span class="text-[10px] font-semibold text-gray-700 text-center">Kalıp</span>
-                <span class="text-[9px] text-gray-400 mt-1">05 Haz 11:45</span>
-                <span class="text-[9px] text-teal-600 font-medium mt-0.5">3.21 gr</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mb-1.5"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+                <span class="text-[9px] font-semibold text-gray-700 text-center">Kalıp</span>
+                <span class="text-[8px] text-gray-400 mt-0.5">05 Haz</span>
+                <span class="text-[8px] text-teal-600 font-medium">3.21 gr</span>
               </div>
               <!-- Döküm -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center mb-2"><i data-lucide="check" class="w-4 h-4 text-white"></i></div>
-                <span class="text-[10px] font-semibold text-gray-700 text-center">Döküm</span>
-                <span class="text-[9px] text-gray-400 mt-1">05 Haz 16:30</span>
-                <span class="text-[9px] text-teal-600 font-medium mt-0.5">3.18 gr</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mb-1.5"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+                <span class="text-[9px] font-semibold text-gray-700 text-center">Döküm</span>
+                <span class="text-[8px] text-gray-400 mt-0.5">05 Haz</span>
+                <span class="text-[8px] text-teal-600 font-medium">3.18 gr</span>
               </div>
               <!-- Cila - active -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center mb-2 ring-4 ring-blue-100"><i data-lucide="sparkles" class="w-4 h-4 text-white"></i></div>
-                <span class="text-[10px] font-bold text-blue-600 text-center">Cila</span>
-                <span class="text-[9px] text-blue-500 mt-1 font-medium">Devam ediyor</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mb-1.5 ring-2 ring-blue-100"><i data-lucide="sparkles" class="w-3 h-3 text-white"></i></div>
+                <span class="text-[9px] font-bold text-blue-600 text-center">Cila</span>
+                <span class="text-[8px] text-blue-500 font-medium">Devam</span>
               </div>
               <!-- Mıhlama -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mb-2"><i data-lucide="gem" class="w-3.5 h-3.5 text-gray-400"></i></div>
-                <span class="text-[10px] text-gray-400 text-center">Mıhlama</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mb-1.5"><i data-lucide="gem" class="w-2.5 h-2.5 text-gray-400"></i></div>
+                <span class="text-[9px] text-gray-400 text-center">Mıhlama</span>
               </div>
               <!-- Kalite Kontrol -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mb-2"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-gray-400"></i></div>
-                <span class="text-[10px] text-gray-400 text-center leading-tight">Kalite<br>Kontrol</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mb-1.5"><i data-lucide="shield-check" class="w-2.5 h-2.5 text-gray-400"></i></div>
+                <span class="text-[9px] text-gray-400 text-center leading-tight">K.Kontrol</span>
               </div>
               <!-- Paketleme -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mb-2"><i data-lucide="package" class="w-3.5 h-3.5 text-gray-400"></i></div>
-                <span class="text-[10px] text-gray-400 text-center">Paketleme</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mb-1.5"><i data-lucide="package" class="w-2.5 h-2.5 text-gray-400"></i></div>
+                <span class="text-[9px] text-gray-400 text-center">Paket</span>
               </div>
               <!-- Kargo -->
-              <div class="flex flex-col items-center z-10 flex-1">
-                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mb-2"><i data-lucide="truck" class="w-3.5 h-3.5 text-gray-400"></i></div>
-                <span class="text-[10px] text-gray-400 text-center">Kargo</span>
+              <div class="flex flex-col items-center z-10 flex-1 min-w-0">
+                <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mb-1.5"><i data-lucide="truck" class="w-2.5 h-2.5 text-gray-400"></i></div>
+                <span class="text-[9px] text-gray-400 text-center">Kargo</span>
               </div>
             </div>
-            <div class="mt-4 bg-blue-50 border border-blue-100 rounded-lg px-4 py-2.5 flex items-center gap-2">
-              <i data-lucide="scale" class="w-4 h-4 text-blue-600 flex-shrink-0"></i>
-              <span class="text-xs text-blue-700">Gramaj bilgileri üretim aşamalarında güncellenmektedir.</span>
-              <a href="#" class="ml-auto text-xs font-semibold text-blue-600 hover:text-blue-800 whitespace-nowrap">Gramaj Geçmişini Görüntüle →</a>
+            <div class="mt-3 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2 flex items-center gap-2 flex-wrap">
+              <i data-lucide="scale" class="w-3.5 h-3.5 text-blue-600 flex-shrink-0"></i>
+              <span class="text-[11px] text-blue-700 flex-1 min-w-0">Gramaj bilgileri üretim aşamalarında güncellenmektedir.</span>
+              <a href="#" class="text-[11px] font-semibold text-blue-600 hover:text-blue-800 whitespace-nowrap">Gramaj Geçmişi →</a>
             </div>
           </div>
 
@@ -2119,54 +2135,64 @@
             <div class="px-5 py-4 border-b border-gray-100">
               <h3 class="text-sm font-semibold text-gray-800">Sipariş Ürünleri</h3>
             </div>
-            <div class="overflow-x-auto">
-              <table class="w-full min-w-[700px] text-xs">
+            <div class="min-w-0">
+              <table class="magaza-table w-full text-[10px]">
+                <colgroup>
+                  <col style="width:18%" />
+                  <col style="width:12%" />
+                  <col style="width:14%" />
+                  <col style="width:5%" />
+                  <col style="width:14%" />
+                  <col style="width:10%" />
+                  <col style="width:12%" />
+                  <col style="width:10%" />
+                </colgroup>
                 <thead class="bg-gray-50">
                   <tr>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-4 py-3 uppercase">Ürün</th>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase">SKU</th>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase">Özellikler</th>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase">Adet</th>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase">Üretim Aşaması</th>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase">Son Gramaj</th>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase">Tahmini Teslim</th>
-                    <th class="text-left text-[11px] font-semibold text-gray-500 px-4 py-3 uppercase">Durum</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-3 py-2 uppercase">Ürün</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-2 py-2 uppercase">SKU</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-2 py-2 uppercase">Özellikler</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-1 py-2 uppercase">Adet</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-2 py-2 uppercase">Aşama</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-2 py-2 uppercase">Gramaj</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-2 py-2 uppercase">Teslim</th>
+                    <th class="text-left text-[10px] font-semibold text-gray-500 px-3 py-2 uppercase">Durum</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                   <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center flex-shrink-0">
-                          <i data-lucide="gem" class="w-5 h-5 text-amber-600"></i>
+                    <td class="px-3 py-2">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center flex-shrink-0">
+                          <i data-lucide="gem" class="w-4 h-4 text-amber-600"></i>
                         </div>
-                        <span class="font-medium text-gray-800">Diamond Ring 14K</span>
+                        <span class="font-medium text-gray-800 truncate">Diamond Ring 14K</span>
                       </div>
                     </td>
-                    <td class="px-3 py-3 text-gray-600">DR-14K-RG-054</td>
-                    <td class="px-3 py-3 text-gray-600"><div>14K Rose Gold</div><div class="text-[11px] text-gray-400">Ölçü: 54 · Taşlı</div></td>
-                    <td class="px-3 py-3 text-gray-700">1</td>
-                    <td class="px-3 py-3 min-w-[100px]"><div class="flex justify-between mb-1"><span>Cila</span><span class="text-gray-400">2/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:50%"></div></div></td>
-                    <td class="px-3 py-3"><span class="font-medium text-gray-800">3.21 gr</span><span class="text-red-500 text-[11px] ml-1">(-0.10 gr)</span></td>
-                    <td class="px-3 py-3"><div class="font-medium">09 Haz 2026</div><div class="text-blue-600 font-semibold text-[11px]">(Yarın)</div></td>
-                    <td class="px-4 py-3"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Üretimde</span></td>
+                    <td class="px-2 py-2 text-gray-600 truncate">DR-14K-RG-054</td>
+                    <td class="px-2 py-2 text-gray-600"><div class="truncate">14K Rose Gold</div><div class="text-[9px] text-gray-400">Ölçü: 54</div></td>
+                    <td class="px-1 py-2 text-gray-700 text-center">1</td>
+                    <td class="px-2 py-2"><div class="flex justify-between mb-0.5 text-[9px]"><span>Cila</span><span class="text-gray-400">2/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-blue-500 rounded-full" style="width:50%"></div></div></td>
+                    <td class="px-2 py-2"><span class="font-medium text-gray-800">3.21 gr</span><span class="text-red-500 text-[9px]"> (-0.10)</span></td>
+                    <td class="px-2 py-2"><div class="font-medium">09 Haz</div><div class="text-blue-600 font-semibold text-[9px]">Yarın</div></td>
+                    <td class="px-3 py-2"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-green-100 text-green-700"><span class="w-1 h-1 rounded-full bg-green-500"></span>Üretimde</span></td>
                   </tr>
                   <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3">
-                      <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-100 to-amber-100 flex items-center justify-center flex-shrink-0">
-                          <i data-lucide="link" class="w-5 h-5 text-yellow-600"></i>
+                    <td class="px-3 py-2">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-100 to-amber-100 flex items-center justify-center flex-shrink-0">
+                          <i data-lucide="link" class="w-4 h-4 text-yellow-600"></i>
                         </div>
-                        <span class="font-medium text-gray-800">Necklace 14K</span>
+                        <span class="font-medium text-gray-800 truncate">Necklace 14K</span>
                       </div>
                     </td>
-                    <td class="px-3 py-3 text-gray-600">NK-14K-RG-042</td>
-                    <td class="px-3 py-3 text-gray-600"><div>14K Rose Gold</div><div class="text-[11px] text-gray-400">Uzunluk: 45cm</div></td>
-                    <td class="px-3 py-3 text-gray-700">1</td>
-                    <td class="px-3 py-3"><div class="flex justify-between mb-1"><span>Kalıp</span><span class="text-gray-400">1/4</span></div><div class="h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:25%"></div></div></td>
-                    <td class="px-3 py-3"><span class="font-medium text-gray-800">3.15 gr</span></td>
-                    <td class="px-3 py-3"><div class="font-medium">10 Haz 2026</div><div class="text-green-600 font-semibold text-[11px]">(Vakti var)</div></td>
-                    <td class="px-4 py-3"><span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-purple-100 text-purple-700"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Kalıp</span></td>
+                    <td class="px-2 py-2 text-gray-600 truncate">NK-14K-RG-042</td>
+                    <td class="px-2 py-2 text-gray-600"><div class="truncate">14K Rose Gold</div><div class="text-[9px] text-gray-400">45cm</div></td>
+                    <td class="px-1 py-2 text-gray-700 text-center">1</td>
+                    <td class="px-2 py-2"><div class="flex justify-between mb-0.5 text-[9px]"><span>Kalıp</span><span class="text-gray-400">1/4</span></div><div class="h-1 bg-gray-100 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width:25%"></div></div></td>
+                    <td class="px-2 py-2"><span class="font-medium text-gray-800">3.15 gr</span></td>
+                    <td class="px-2 py-2"><div class="font-medium">10 Haz</div><div class="text-green-600 font-semibold text-[9px]">OK</div></td>
+                    <td class="px-3 py-2"><span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-purple-100 text-purple-700"><span class="w-1 h-1 rounded-full bg-purple-500"></span>Kalıp</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -2177,7 +2203,7 @@
           </div>
 
           <!-- Notes row -->
-          <div class="grid grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
               <h3 class="text-xs font-semibold text-gray-800 mb-3 flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5 text-gray-400"></i>Müşteri Bilgileri</h3>
               <div class="space-y-1.5 text-xs text-gray-600">
@@ -2200,7 +2226,7 @@
         </div>
 
         <!-- RIGHT: sidebar panels -->
-        <div class="space-y-4">
+        <div class="w-full xl:w-72 flex-shrink-0 space-y-3">
 
           <!-- Order status -->
           <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm text-center">
