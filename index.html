@@ -3,18 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Üretici Portalı — Dashboard</title>
+  <title>Üretici Portalı</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] }
-        }
-      }
+      theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } }
     }
   </script>
   <style>
@@ -23,25 +19,22 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
     .border-l-alarm { border-left-width: 4px; }
-    .nav-item { transition: background 0.15s, color 0.15s; }
+    .nav-item { transition: background 0.15s, color 0.15s; cursor: pointer; }
+    .page { display: none; height: 100vh; overflow: hidden; }
+    .page.active { display: flex; }
+    body { overflow: hidden; }
   </style>
 </head>
-<body class="bg-slate-100 h-screen overflow-hidden text-sm">
+<body class="text-sm bg-gray-50">
 
-  <!-- ═══════════════════════════ ÜRETİCİ PORTALI ═══════════════════════════ -->
-  <div id="page-uretici-dashboard" class="page flex h-screen overflow-hidden">
+<!-- ══════════════════════ PAGE: ÜRETİCİ DASHBOARD ══════════════════════ -->
+<div id="page-uretici-dashboard" class="page active">
 
-  <!-- ═══════════════════════════ SIDEBAR ═══════════════════════════ -->
   <aside class="w-60 bg-[#0f1623] flex flex-col flex-shrink-0 h-screen overflow-y-auto">
-
-    <!-- Logo -->
     <div class="px-5 py-4 border-b border-slate-800">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl flex items-center justify-center"
-             style="background: linear-gradient(135deg, #f97316, #a855f7)">
-          <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor">
-            <path d="M12 2L2 9l10 13L22 9z"/>
-          </svg>
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #f97316, #a855f7)">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor"><path d="M12 2L2 9l10 13L22 9z"/></svg>
         </div>
         <div>
           <div class="text-white font-bold text-xs tracking-wide leading-tight">ÜRETİCİ PORTALI</div>
@@ -49,14 +42,12 @@
         </div>
       </div>
     </div>
-
-    <!-- Nav -->
     <nav class="flex-1 px-3 py-3 space-y-0.5">
-      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white">
+      <a onclick="showPage('page-uretici-dashboard')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white">
         <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i>
         <span class="text-sm font-medium">Dashboard</span>
       </a>
-      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+      <a onclick="showPage('page-uretici-gelen')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
         <i data-lucide="inbox" class="w-4 h-4 flex-shrink-0"></i>
         <span class="text-sm">Gelen Siparişler</span>
       </a>
@@ -97,8 +88,6 @@
         <span class="text-sm">Ayarlar</span>
       </a>
     </nav>
-
-    <!-- Support -->
     <div class="px-5 py-4 border-t border-slate-800">
       <div class="flex items-center gap-2 mb-2">
         <i data-lucide="help-circle" class="w-3.5 h-3.5 text-slate-400"></i>
@@ -112,16 +101,11 @@
         <i data-lucide="mail" class="w-3 h-3"></i>
         <span>destek@uretimtakip.com</span>
       </div>
-      <div class="text-slate-600 text-[10px] leading-relaxed">
-        © 2026 Üretim Takip Sistemi<br>Tüm hakları saklıdır.
-      </div>
+      <div class="text-slate-600 text-[10px] leading-relaxed">© 2026 Üretim Takip Sistemi<br>Tüm hakları saklıdır.</div>
     </div>
   </aside>
 
-  <!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
   <main class="flex-1 flex flex-col h-screen overflow-hidden">
-
-    <!-- Top Bar -->
     <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
       <div class="flex items-center gap-3">
         <button class="p-1.5 rounded-md text-gray-400 hover:bg-gray-100">
@@ -130,21 +114,17 @@
         <h1 class="text-lg font-semibold text-gray-800">Dashboard</h1>
       </div>
       <div class="flex items-center gap-2">
-        <!-- Facility -->
         <button class="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50">
           <i data-lucide="building-2" class="w-4 h-4 text-gray-400"></i>
           Üretim Tesisi 1
           <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
         </button>
-        <!-- Bell -->
         <div class="relative">
           <button class="p-2 rounded-lg text-gray-400 hover:bg-gray-100">
             <i data-lucide="bell" class="w-5 h-5"></i>
           </button>
-          <span class="absolute -top-0.5 -right-0.5 bg-red-500 text-white font-bold rounded-full flex items-center justify-center"
-                style="width:17px;height:17px;font-size:10px">8</span>
+          <span class="absolute -top-0.5 -right-0.5 bg-red-500 text-white font-bold rounded-full flex items-center justify-center" style="width:17px;height:17px;font-size:10px">8</span>
         </div>
-        <!-- User -->
         <button class="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-2 py-1.5">
           <div class="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0">UT</div>
           <div class="text-left">
@@ -156,13 +136,10 @@
       </div>
     </header>
 
-    <!-- Scrollable Content -->
     <div class="flex-1 overflow-y-auto p-6 bg-gray-50 space-y-5">
 
-      <!-- ── STAT CARDS ── -->
+      <!-- Stat Cards -->
       <div class="grid grid-cols-6 gap-4">
-
-        <!-- Bekleyen Sipariş -->
         <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
           <div class="flex items-start justify-between mb-3">
             <p class="text-xs text-gray-500 font-medium">Bekleyen Sipariş</p>
@@ -175,8 +152,6 @@
             <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 16
           </div>
         </div>
-
-        <!-- Üretimde -->
         <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
           <div class="flex items-start justify-between mb-3">
             <p class="text-xs text-gray-500 font-medium">Üretimde</p>
@@ -189,8 +164,6 @@
             <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 74
           </div>
         </div>
-
-        <!-- Kalite Kontrolde -->
         <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
           <div class="flex items-start justify-between mb-3">
             <p class="text-xs text-gray-500 font-medium">Kalite Kontrolde</p>
@@ -203,8 +176,6 @@
             <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 17
           </div>
         </div>
-
-        <!-- Paketlemede -->
         <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
           <div class="flex items-start justify-between mb-3">
             <p class="text-xs text-gray-500 font-medium">Paketlemede</p>
@@ -217,8 +188,6 @@
             <i data-lucide="trending-down" class="w-3 h-3"></i> Dün: 17
           </div>
         </div>
-
-        <!-- Kargoda -->
         <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
           <div class="flex items-start justify-between mb-3">
             <p class="text-xs text-gray-500 font-medium">Kargoda</p>
@@ -231,8 +200,6 @@
             <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 19
           </div>
         </div>
-
-        <!-- Deadline Aşan -->
         <div class="bg-red-50 rounded-xl p-4 border border-red-100 shadow-sm">
           <div class="flex items-start justify-between mb-3">
             <p class="text-xs text-red-500 font-medium">Deadline Aşan</p>
@@ -245,33 +212,11 @@
         </div>
       </div>
 
-      <!-- ── MAĞAZA PORTAL GİRİŞ ── -->
-      <button onclick="showPage('magaza-dashboard')"
-              class="w-full flex items-center justify-between px-5 py-4 rounded-xl border border-indigo-200 bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 transition-colors shadow-sm group text-left">
-        <div class="flex items-center gap-4">
-          <div class="w-11 h-11 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0 group-hover:bg-indigo-700 transition-colors">
-            <i data-lucide="store" class="w-5 h-5 text-white"></i>
-          </div>
-          <div>
-            <div class="text-sm font-semibold text-gray-800">Mağaza Portal Giriş</div>
-            <div class="text-xs text-gray-500 mt-0.5">New York Store yönetim paneline geç</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 text-indigo-600">
-          <span class="text-xs font-semibold hidden sm:inline">Portala Git</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </div>
-      </button>
-
-      <!-- ── PRODUCTION STAGES + ALARMS ── -->
+      <!-- Production Stages + Alarms -->
       <div class="grid grid-cols-5 gap-4">
-
-        <!-- Production Stages -->
         <div class="col-span-3 bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
           <h2 class="text-sm font-semibold text-gray-800 mb-4">Üretim Aşamalarındaki Siparişler</h2>
           <div class="space-y-3.5">
-
-            <!-- Kalıp -->
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-500"></i>
@@ -287,8 +232,6 @@
               </div>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-300 flex-shrink-0"></i>
             </div>
-
-            <!-- Döküm -->
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i data-lucide="flame" class="w-3.5 h-3.5 text-orange-500"></i>
@@ -304,8 +247,6 @@
               </div>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-300 flex-shrink-0"></i>
             </div>
-
-            <!-- Cila -->
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i data-lucide="sparkles" class="w-3.5 h-3.5 text-green-500"></i>
@@ -321,8 +262,6 @@
               </div>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-300 flex-shrink-0"></i>
             </div>
-
-            <!-- Mıhlama -->
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i data-lucide="hammer" class="w-3.5 h-3.5 text-purple-500"></i>
@@ -338,8 +277,6 @@
               </div>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-300 flex-shrink-0"></i>
             </div>
-
-            <!-- Kalite Kontrol -->
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i data-lucide="shield-check" class="w-3.5 h-3.5 text-sky-500"></i>
@@ -358,32 +295,26 @@
           </div>
         </div>
 
-        <!-- Alarms -->
         <div class="col-span-2 bg-white rounded-xl p-5 border border-gray-100 shadow-sm flex flex-col">
           <h2 class="text-sm font-semibold text-gray-800 mb-4">Alarm ve Bildirimler</h2>
           <div class="space-y-2.5 flex-1">
-
             <div class="flex items-center gap-3 p-3 bg-red-50 rounded-xl border-l-alarm border-red-500">
               <span class="text-2xl font-bold text-red-600 leading-none" style="min-width:28px">4</span>
               <span class="text-xs font-semibold text-red-700">Sipariş süresi aştı (Acil)</span>
             </div>
-
             <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border-l-alarm border-orange-400">
               <span class="text-2xl font-bold text-orange-500 leading-none" style="min-width:28px">9</span>
               <span class="text-xs font-semibold text-orange-700">Sipariş riski (1-2 gün kaldı)</span>
             </div>
-
             <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-xl border-l-alarm border-blue-400">
               <span class="text-2xl font-bold text-blue-500 leading-none" style="min-width:28px">2</span>
               <span class="text-xs font-semibold text-blue-700">Kalite kontrol bekleyen ürün var</span>
             </div>
-
             <div class="flex items-center gap-3 p-3 bg-yellow-50 rounded-xl border-l-alarm border-yellow-400">
               <span class="text-2xl font-bold text-yellow-500 leading-none" style="min-width:28px">1</span>
               <span class="text-xs font-semibold text-yellow-700">Kargo gecikmesi var</span>
             </div>
           </div>
-
           <a href="#" class="mt-4 flex items-center gap-1.5 text-blue-600 text-xs font-semibold hover:text-blue-700">
             Tüm Bildirimleri Görüntüle
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -391,30 +322,23 @@
         </div>
       </div>
 
-      <!-- ── ORDERS TABLE ── -->
+      <!-- Orders Table -->
       <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
           <h2 class="text-sm font-semibold text-gray-800">Son Gelen Siparişler</h2>
           <div class="flex items-center gap-2">
             <select class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-blue-300">
-              <option>Tümü</option>
-              <option>Üretimde</option>
-              <option>Kalite Kontrol</option>
-              <option>Paketlemede</option>
-              <option>Kargoda</option>
+              <option>Tümü</option><option>Üretimde</option><option>Kalite Kontrol</option><option>Paketlemede</option><option>Kargoda</option>
             </select>
             <button class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50">
-              <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-              Tarih Aralığı
+              <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Tarih Aralığı
             </button>
             <button class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50">
-              <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
-              Filtrele
+              <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i> Filtrele
               <i data-lucide="chevron-down" class="w-3 h-3"></i>
             </button>
           </div>
         </div>
-
         <table class="w-full">
           <thead class="bg-gray-50">
             <tr>
@@ -436,8 +360,7 @@
               <td class="px-3 py-3.5 text-xs text-gray-600">2 Ürün</td>
               <td class="px-3 py-3.5">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-700">
-                  <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                  Üretimde (Cila)
+                  <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Üretimde (Cila)
                 </span>
               </td>
               <td class="px-3 py-3.5">
@@ -458,8 +381,7 @@
               <td class="px-3 py-3.5 text-xs text-gray-600">1 Ürün</td>
               <td class="px-3 py-3.5">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-orange-100 text-orange-700">
-                  <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                  Üretimde (Döküm)
+                  <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>Üretimde (Döküm)
                 </span>
               </td>
               <td class="px-3 py-3.5">
@@ -480,8 +402,7 @@
               <td class="px-3 py-3.5 text-xs text-gray-600">3 Ürün</td>
               <td class="px-3 py-3.5">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-purple-100 text-purple-700">
-                  <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                  Kalıp
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Kalıp
                 </span>
               </td>
               <td class="px-3 py-3.5">
@@ -502,8 +423,7 @@
               <td class="px-3 py-3.5 text-xs text-gray-600">2 Ürün</td>
               <td class="px-3 py-3.5">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-sky-100 text-sky-700">
-                  <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
-                  Kalite Kontrol
+                  <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Kalite Kontrol
                 </span>
               </td>
               <td class="px-3 py-3.5">
@@ -524,8 +444,7 @@
               <td class="px-3 py-3.5 text-xs text-gray-600">1 Ürün</td>
               <td class="px-3 py-3.5">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-teal-100 text-teal-700">
-                  <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
-                  Paketlemede
+                  <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Paketlemede
                 </span>
               </td>
               <td class="px-3 py-3.5">
@@ -540,32 +459,28 @@
             </tr>
           </tbody>
         </table>
-
         <div class="px-5 py-3.5 border-t border-gray-100">
-          <a href="#" class="flex items-center gap-1.5 text-blue-600 text-xs font-semibold hover:text-blue-700">
+          <a onclick="showPage('page-uretici-gelen')" class="flex items-center gap-1.5 text-blue-600 text-xs font-semibold hover:text-blue-700 cursor-pointer">
             Tüm Siparişleri Görüntüle
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
       </div>
 
-      <!-- ── KASA MUTABAKATI ── -->
+      <!-- Kasa Mutabakatı -->
       <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
         <h2 class="text-sm font-semibold text-gray-800 mb-4">Kasa Mutabakatı (Özet)</h2>
         <div class="grid grid-cols-3 gap-4">
-
           <div class="text-center p-4 rounded-xl border border-yellow-200 bg-yellow-50">
             <div class="text-xs text-gray-500 font-medium mb-2">Bekleyen Onay</div>
             <div class="text-3xl font-bold text-gray-800">7</div>
             <div class="text-xs text-gray-500 mt-1">Kasa</div>
           </div>
-
           <div class="text-center p-4 rounded-xl border border-green-200 bg-green-50">
             <div class="text-xs text-gray-500 font-medium mb-2">Onaylanan</div>
             <div class="text-3xl font-bold text-green-600">35</div>
             <div class="text-xs text-gray-500 mt-1">Kasa</div>
           </div>
-
           <div class="text-center p-4 rounded-xl border border-red-200 bg-red-50">
             <div class="text-xs text-gray-500 font-medium mb-2">Uyuşmazlık</div>
             <div class="text-3xl font-bold text-red-600">2</div>
@@ -578,502 +493,563 @@
         </a>
       </div>
 
-      <!-- bottom padding -->
       <div class="h-2"></div>
     </div>
   </main>
-  </div><!-- /page-uretici-dashboard -->
+</div><!-- /page-uretici-dashboard -->
 
-  <!-- ═══════════════════════════ MAĞAZA PORTALI ═══════════════════════════ -->
-  <div id="page-magaza-dashboard" class="page hidden flex h-screen overflow-hidden">
 
-    <!-- Sidebar -->
-    <aside class="w-60 bg-[#0f1623] flex flex-col flex-shrink-0 h-screen overflow-y-auto">
-      <div class="px-5 py-4 border-b border-slate-800">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center"
-               style="background: linear-gradient(135deg, #6366f1, #a855f7)">
-            <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor">
-              <path d="M12 2L2 9l10 13L22 9z"/>
-            </svg>
+<!-- ══════════════════════ PAGE: ÜRETİCİ GELEN SİPARİŞLER ══════════════════════ -->
+<div id="page-uretici-gelen" class="page">
+
+  <aside class="w-60 bg-[#0f1623] flex flex-col flex-shrink-0 h-screen overflow-y-auto">
+    <div class="px-5 py-4 border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #f97316, #a855f7)">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="currentColor"><path d="M12 2L2 9l10 13L22 9z"/></svg>
+        </div>
+        <div>
+          <div class="text-white font-bold text-xs tracking-wide leading-tight">ÜRETİCİ PORTALI</div>
+          <div class="text-slate-500 text-[11px] mt-0.5">Üretim Takip Sistemi</div>
+        </div>
+      </div>
+    </div>
+    <nav class="flex-1 px-3 py-3 space-y-0.5">
+      <a onclick="showPage('page-uretici-dashboard')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Dashboard</span>
+      </a>
+      <a onclick="showPage('page-uretici-gelen')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white">
+        <i data-lucide="inbox" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm font-medium">Gelen Siparişler</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="factory" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Üretim Yönetimi</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="monitor-check" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">İş İstasyonları</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="shield-check" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Kalite Kontrol</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="package" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Paketleme</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="truck" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Kargo Yönetimi</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="wallet" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Kasa Mutabakatı</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="ban" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Yasaklı Liste Yönetimi</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="bar-chart-2" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Operasyon Raporları</span>
+      </a>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <i data-lucide="settings" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-sm">Ayarlar</span>
+      </a>
+    </nav>
+    <div class="px-5 py-4 border-t border-slate-800">
+      <div class="flex items-center gap-2 mb-2">
+        <i data-lucide="help-circle" class="w-3.5 h-3.5 text-slate-400"></i>
+        <span class="text-slate-300 text-xs font-semibold">Destek</span>
+      </div>
+      <div class="flex items-center gap-2 text-slate-500 text-[11px] mb-1">
+        <i data-lucide="phone" class="w-3 h-3"></i>
+        <span>+90 212 555 0123</span>
+      </div>
+      <div class="flex items-center gap-2 text-slate-500 text-[11px] mb-3">
+        <i data-lucide="mail" class="w-3 h-3"></i>
+        <span>destek@uretimtakip.com</span>
+      </div>
+      <div class="text-slate-600 text-[10px] leading-relaxed">© 2026 Üretim Takip Sistemi<br>Tüm hakları saklıdır.</div>
+    </div>
+  </aside>
+
+  <main class="flex-1 flex flex-col h-screen overflow-hidden">
+    <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
+      <div class="flex items-center gap-3">
+        <button class="p-1.5 rounded-md text-gray-400 hover:bg-gray-100">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <div>
+          <h1 class="text-lg font-semibold text-gray-800">Gelen Siparişler</h1>
+          <p class="text-[11px] text-gray-400">Mağazalardan gelen ve üretim bekleyen siparişleri görüntüleyin</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50">
+          <i data-lucide="building-2" class="w-4 h-4 text-gray-400"></i>
+          Üretim Tesisi 1
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
+        </button>
+        <div class="relative">
+          <button class="p-2 rounded-lg text-gray-400 hover:bg-gray-100">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+          </button>
+          <span class="absolute -top-0.5 -right-0.5 bg-red-500 text-white font-bold rounded-full flex items-center justify-center" style="width:17px;height:17px;font-size:10px">8</span>
+        </div>
+        <button class="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-2 py-1.5">
+          <div class="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0">UT</div>
+          <div class="text-left">
+            <div class="text-xs font-semibold text-gray-800 leading-tight">Üretim</div>
+            <div class="text-[11px] text-gray-500">Yöneticisi</div>
           </div>
-          <div>
-            <div class="text-white font-bold text-xs tracking-wide leading-tight">MAĞAZA PORTALI</div>
-            <div class="text-slate-500 text-[11px] mt-0.5">Üretim Takip Sistemi</div>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="flex-1 overflow-y-auto p-6 bg-gray-50 space-y-4">
+
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-6 gap-4">
+        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+          <div class="flex items-start justify-between mb-3">
+            <p class="text-xs text-gray-500 font-medium">Toplam Yeni</p>
+            <div class="w-9 h-9 bg-indigo-100 rounded-lg flex items-center justify-center">
+              <i data-lucide="inbox" class="w-4 h-4 text-indigo-500"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">18</div>
+          <div class="flex items-center gap-1 text-[11px] text-green-600 font-medium">
+            <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 11
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+          <div class="flex items-start justify-between mb-3">
+            <p class="text-xs text-gray-500 font-medium">Bekleyen Onay</p>
+            <div class="w-9 h-9 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <i data-lucide="clock" class="w-4 h-4 text-yellow-500"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">14</div>
+          <div class="flex items-center gap-1 text-[11px] text-red-500 font-medium">
+            <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 9
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+          <div class="flex items-start justify-between mb-3">
+            <p class="text-xs text-gray-500 font-medium">Onaylanmış</p>
+            <div class="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center">
+              <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">2</div>
+          <div class="flex items-center gap-1 text-[11px] text-green-600 font-medium">
+            <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 1
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+          <div class="flex items-start justify-between mb-3">
+            <p class="text-xs text-gray-500 font-medium">Üretimde</p>
+            <div class="w-9 h-9 bg-orange-100 rounded-lg flex items-center justify-center">
+              <i data-lucide="cog" class="w-4 h-4 text-orange-500"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">38</div>
+          <div class="flex items-center gap-1 text-[11px] text-green-600 font-medium">
+            <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 15
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+          <div class="flex items-start justify-between mb-3">
+            <p class="text-xs text-gray-500 font-medium">Kargoda</p>
+            <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center">
+              <i data-lucide="truck" class="w-4 h-4 text-blue-500"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">15</div>
+          <div class="flex items-center gap-1 text-[11px] text-green-600 font-medium">
+            <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 7
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+          <div class="flex items-start justify-between mb-3">
+            <p class="text-xs text-gray-500 font-medium">Teslim Edilen</p>
+            <div class="w-9 h-9 bg-teal-100 rounded-lg flex items-center justify-center">
+              <i data-lucide="package-check" class="w-4 h-4 text-teal-500"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">97</div>
+          <div class="flex items-center gap-1 text-[11px] text-green-600 font-medium">
+            <i data-lucide="trending-up" class="w-3 h-3"></i> Aylık: 85
           </div>
         </div>
       </div>
 
-      <nav class="flex-1 px-3 py-3 space-y-0.5">
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-blue-600 text-white">
-          <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm font-medium">Dashboard</span>
-        </a>
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="upload" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm">Sipariş Yükleme</span>
-        </a>
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="shopping-bag" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm">Siparişler</span>
-        </a>
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="factory" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm">Üretim Takibi</span>
-        </a>
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="wallet" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm">Kasa Mutabakatı</span>
-        </a>
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="message-square-warning" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm">Müşteri Şikayetleri</span>
-          <span class="ml-auto bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">New</span>
-        </a>
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="bar-chart-2" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm">Operasyon Raporları</span>
-        </a>
-        <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="settings" class="w-4 h-4 flex-shrink-0"></i>
-          <span class="text-sm">Ayarlar</span>
-        </a>
-        <div class="pt-3 mt-3 border-t border-slate-800">
-          <button onclick="showPage('uretici-dashboard')"
-                  class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-            <i data-lucide="arrow-left" class="w-4 h-4 flex-shrink-0"></i>
-            <span class="text-sm">Üretici Portalına Dön</span>
-          </button>
-        </div>
-      </nav>
+      <!-- Tabs + Filters + Table -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
 
-      <div class="px-5 py-4 border-t border-slate-800">
-        <div class="flex items-center gap-2 mb-2">
-          <i data-lucide="help-circle" class="w-3.5 h-3.5 text-slate-400"></i>
-          <span class="text-slate-300 text-xs font-semibold">Destek</span>
-        </div>
-        <div class="flex items-center gap-2 text-slate-500 text-[11px] mb-1">
-          <i data-lucide="phone" class="w-3 h-3"></i>
-          <span>+90 212 555 0123</span>
-        </div>
-        <div class="flex items-center gap-2 text-slate-500 text-[11px] mb-3">
-          <i data-lucide="mail" class="w-3 h-3"></i>
-          <span>destek@uretimtakip.com</span>
-        </div>
-        <div class="text-slate-600 text-[10px] leading-relaxed">
-          © 2026 Üretim Takip Sistemi<br>Tüm hakları saklıdır.
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden">
-      <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
-        <div class="flex items-center gap-3">
-          <button class="p-1.5 rounded-md text-gray-400 hover:bg-gray-100">
-            <i data-lucide="menu" class="w-5 h-5"></i>
-          </button>
-          <h1 class="text-lg font-semibold text-gray-800">Mağaza Dashboard</h1>
-        </div>
-        <div class="flex items-center gap-2">
-          <button class="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50">
-            <i data-lucide="store" class="w-4 h-4 text-gray-400"></i>
-            New York Store
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
-          </button>
-          <div class="relative">
-            <button class="p-2 rounded-lg text-gray-400 hover:bg-gray-100">
-              <i data-lucide="bell" class="w-5 h-5"></i>
+        <!-- Tabs + Filter Bar -->
+        <div class="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between gap-3 flex-wrap">
+          <div class="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+            <button class="px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-gray-800 shadow-sm">Tümü</button>
+            <button class="px-3 py-1.5 rounded-md text-xs font-medium text-gray-500 hover:text-gray-700">Yalnızca Atanmış Bekleyenler</button>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="relative">
+              <i data-lucide="search" class="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2"></i>
+              <input type="text" placeholder="Sipariş ara, mağaza veya müşteri..."
+                class="pl-8 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-300 w-56" />
+            </div>
+            <select class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-blue-300">
+              <option>Onay Durumu</option>
+              <option>Onaylandı</option>
+              <option>Beklemede</option>
+              <option>Reddedildi</option>
+            </select>
+            <select class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-blue-300">
+              <option>Durum</option>
+              <option>Bekleyen</option>
+              <option>Üretimde</option>
+              <option>Kalite Kontrol</option>
+              <option>Paketlemede</option>
+              <option>Kargoda</option>
+            </select>
+            <button class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50">
+              <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Tarih Aralığı
             </button>
-            <span class="absolute -top-0.5 -right-0.5 bg-red-500 text-white font-bold rounded-full flex items-center justify-center"
-                  style="width:17px;height:17px;font-size:10px">5</span>
-          </div>
-          <button class="flex items-center gap-2 hover:bg-gray-50 rounded-lg px-2 py-1.5">
-            <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0">MG</div>
-            <div class="text-left">
-              <div class="text-xs font-semibold text-gray-800 leading-tight">Mağaza</div>
-              <div class="text-[11px] text-gray-500">Yöneticisi</div>
-            </div>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
-          </button>
-        </div>
-      </header>
-
-      <div class="flex-1 overflow-y-auto p-6 bg-gray-50 space-y-5">
-
-        <!-- Stat Cards -->
-        <div class="grid grid-cols-5 gap-4">
-          <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-            <div class="flex items-start justify-between mb-3">
-              <p class="text-xs text-gray-500 font-medium">Bugün Gelen Sipariş</p>
-              <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center">
-                <i data-lucide="inbox" class="w-4 h-4 text-blue-500"></i>
-              </div>
-            </div>
-            <div class="text-3xl font-bold text-gray-800 mb-2">24</div>
-            <div class="flex items-center gap-1 text-[11px] text-green-600 font-medium">
-              <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 18
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-            <div class="flex items-start justify-between mb-3">
-              <p class="text-xs text-gray-500 font-medium">Yasaklı Sipariş</p>
-              <div class="w-9 h-9 bg-red-100 rounded-lg flex items-center justify-center">
-                <i data-lucide="ban" class="w-4 h-4 text-red-500"></i>
-              </div>
-            </div>
-            <div class="text-3xl font-bold text-gray-800 mb-2">12</div>
-            <div class="flex items-center gap-1 text-[11px] text-red-500 font-medium">
-              <i data-lucide="trending-up" class="w-3 h-3"></i> Dün: 8
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-            <div class="flex items-start justify-between mb-3">
-              <p class="text-xs text-gray-500 font-medium">Üretimde</p>
-              <div class="w-9 h-9 bg-orange-100 rounded-lg flex items-center justify-center">
-                <i data-lucide="cog" class="w-4 h-4 text-orange-500"></i>
-              </div>
-            </div>
-            <div class="text-3xl font-bold text-gray-800 mb-2">38</div>
-            <div class="mt-2 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-              <div class="h-full bg-orange-500 rounded-full" style="width:62%"></div>
-            </div>
-            <div class="text-[10px] text-gray-400 mt-1">62%</div>
-          </div>
-
-          <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-            <div class="flex items-start justify-between mb-3">
-              <p class="text-xs text-gray-500 font-medium">Kargoda</p>
-              <div class="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center">
-                <i data-lucide="truck" class="w-4 h-4 text-green-500"></i>
-              </div>
-            </div>
-            <div class="text-3xl font-bold text-gray-800 mb-2">15</div>
-            <div class="mt-2 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-              <div class="h-full bg-green-500 rounded-full" style="width:24%"></div>
-            </div>
-            <div class="text-[10px] text-gray-400 mt-1">24%</div>
-          </div>
-
-          <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-            <div class="flex items-start justify-between mb-3">
-              <p class="text-xs text-gray-500 font-medium">Teslim Edilen</p>
-              <div class="w-9 h-9 bg-teal-100 rounded-lg flex items-center justify-center">
-                <i data-lucide="package-check" class="w-4 h-4 text-teal-500"></i>
-              </div>
-            </div>
-            <div class="text-3xl font-bold text-gray-800 mb-2">97</div>
-            <div class="text-[11px] text-gray-500 font-medium">Bu ay</div>
-            <div class="flex items-center gap-1 text-[11px] text-green-600 font-medium mt-1">
-              <i data-lucide="trending-up" class="w-3 h-3"></i> Geçen ay: 81
-            </div>
+            <button class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50">
+              <i data-lucide="arrow-up-down" class="w-3.5 h-3.5"></i> Tarihe Göre Sırala
+            </button>
+            <button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-emerald-500 hover:bg-emerald-600">
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i> Excel'e Aktar
+            </button>
           </div>
         </div>
 
-        <!-- Son Siparişler -->
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-            <h2 class="text-sm font-semibold text-gray-800">Son Siparişler</h2>
-            <div class="flex items-center gap-2">
-              <select class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 text-gray-600 bg-white focus:outline-none">
-                <option>Tümü</option>
-                <option>Üretimde</option>
-                <option>Kargoda</option>
-                <option>Teslim Edildi</option>
-              </select>
-              <button class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50">
-                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-                Tarih Aralığı
-              </button>
-              <button class="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50">
-                <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
-                Filtrele
-                <i data-lucide="chevron-down" class="w-3 h-3"></i>
-              </button>
-            </div>
-          </div>
-
-          <table class="w-full">
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[1100px]">
             <thead class="bg-gray-50">
               <tr>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-5 py-3 uppercase tracking-wide">Sipariş No</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide">Müşteri</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide">Ürün Adedi</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide">Durum</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide">Deadline</th>
-                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide">Son Güncelleme</th>
-                <th class="px-5 py-3"></th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-5 py-3 uppercase tracking-wide whitespace-nowrap">Sipariş No</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Mağaza</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Müşteri</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Ürün</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Adet</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Durum</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Onay Durumu</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Son Tarih</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Tarih Aralığı</th>
+                <th class="text-left text-[11px] font-semibold text-gray-500 px-3 py-3 uppercase tracking-wide whitespace-nowrap">Son Güncelleme</th>
+                <th class="px-4 py-3"></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-50">
+
+              <!-- Row 1 -->
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-5 py-3.5 text-xs font-semibold text-gray-800">NY-458712</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">John Doe</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">2 Ürün</td>
-                <td class="px-3 py-3.5">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                    Üretimde (Cila)
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">NY-458712</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">New York Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">John Doe</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Yüzük Deluxe</td>
+                <td class="px-3 py-3 text-xs text-gray-600">1</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Üretimde (Cila)
                   </span>
                 </td>
-                <td class="px-3 py-3.5">
-                  <div class="text-xs text-gray-700 font-medium">07 Haz 2026</div>
-                  <div class="text-[11px] text-orange-500 font-semibold mt-0.5">2 gün kaldı</div>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700">
+                    <i data-lucide="check" class="w-3 h-3"></i>Onaylandı
+                  </span>
                 </td>
-                <td class="px-3 py-3.5 text-xs text-gray-500">Bugün 14:32</td>
-                <td class="px-5 py-3.5 text-right">
-                  <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                  </button>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">07.06.2026</div>
+                  <div class="text-[11px] text-orange-500 font-semibold">2 gün kaldı</div>
                 </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">01.06 — 07.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Bugün 14:32</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
               </tr>
+
+              <!-- Row 2 — Deadline Aşıldı (kırmızı) -->
+              <tr class="bg-red-50 hover:bg-red-100 transition-colors" style="border-left: 4px solid #ef4444;">
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">TX-558321</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Texas Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Anna Johnson</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Kolye Klasik</td>
+                <td class="px-3 py-3 text-xs text-gray-600">1</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-orange-100 text-orange-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>Üretimde (Döküm)
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700">
+                    <i data-lucide="check" class="w-3 h-3"></i>Onaylandı
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-red-700">05.06.2026</div>
+                  <div class="text-[11px] text-red-600 font-bold flex items-center gap-1">
+                    <i data-lucide="alert-circle" class="w-3 h-3"></i>Deadline Aşıldı!
+                  </div>
+                </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">30.05 — 05.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Bugün 13:50</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-red-200 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
+              </tr>
+
+              <!-- Row 3 — Deadline Aşıldı (kırmızı) -->
+              <tr class="bg-red-50 hover:bg-red-100 transition-colors" style="border-left: 4px solid #ef4444;">
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">CA-778921</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">California Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Robert Taylor</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Bileklik Set</td>
+                <td class="px-3 py-3 text-xs text-gray-600">3</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-purple-100 text-purple-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Kalıp
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-yellow-100 text-yellow-700">
+                    <i data-lucide="clock" class="w-3 h-3"></i>Beklemede
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-red-700">04.06.2026</div>
+                  <div class="text-[11px] text-red-600 font-bold flex items-center gap-1">
+                    <i data-lucide="alert-circle" class="w-3 h-3"></i>Deadline Aşıldı!
+                  </div>
+                </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">29.05 — 04.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Bugün 13:20</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-red-200 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
+              </tr>
+
+              <!-- Row 4 -->
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-5 py-3.5 text-xs font-semibold text-gray-800">NY-458711</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">Sarah Miller</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">1 Ürün</td>
-                <td class="px-3 py-3.5">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-purple-100 text-purple-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                    Üretimde (Kalıp)
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">FL-112233</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Florida Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Emily Davis</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Küpe Çifti</td>
+                <td class="px-3 py-3 text-xs text-gray-600">2</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-sky-100 text-sky-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>Kalite Kontrol
                   </span>
                 </td>
-                <td class="px-3 py-3.5">
-                  <div class="text-xs text-gray-700 font-medium">06 Haz 2026</div>
-                  <div class="text-[11px] text-red-500 font-semibold mt-0.5">1 gün kaldı</div>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700">
+                    <i data-lucide="check" class="w-3 h-3"></i>Onaylandı
+                  </span>
                 </td>
-                <td class="px-3 py-3.5 text-xs text-gray-500">Bugün 13:50</td>
-                <td class="px-5 py-3.5 text-right">
-                  <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                  </button>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">08.06.2026</div>
+                  <div class="text-[11px] text-orange-500 font-semibold">2 gün kaldı</div>
                 </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">02.06 — 08.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Bugün 12:30</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
               </tr>
+
+              <!-- Row 5 -->
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-5 py-3.5 text-xs font-semibold text-gray-800">NY-458710</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">David Wilson</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">3 Ürün</td>
-                <td class="px-3 py-3.5">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-sky-100 text-sky-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
-                    Kalite Kontrol
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">IL-334455</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Illinois Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Michael Brown</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Kolye Özel</td>
+                <td class="px-3 py-3 text-xs text-gray-600">1</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-teal-100 text-teal-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>Paketlemede
                   </span>
                 </td>
-                <td class="px-3 py-3.5">
-                  <div class="text-xs text-gray-700 font-medium">05 Haz 2026</div>
-                  <div class="text-[11px] text-green-600 font-semibold mt-0.5">vaktı var</div>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700">
+                    <i data-lucide="check" class="w-3 h-3"></i>Onaylandı
+                  </span>
                 </td>
-                <td class="px-3 py-3.5 text-xs text-gray-500">Bugün 13:20</td>
-                <td class="px-5 py-3.5 text-right">
-                  <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                  </button>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">10.06.2026</div>
+                  <div class="text-[11px] text-green-600 font-semibold">4 gün kaldı</div>
                 </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">04.06 — 10.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Bugün 11:15</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
               </tr>
+
+              <!-- Row 6 -->
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-5 py-3.5 text-xs font-semibold text-gray-800">NY-458709</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">Emily Davis</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">2 Ürün</td>
-                <td class="px-3 py-3.5">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                    Kargoda
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">NY-458716</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">New York Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Sarah Wilson</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Yüzük Seti</td>
+                <td class="px-3 py-3 text-xs text-gray-600">2</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Kargoda
                   </span>
                 </td>
-                <td class="px-3 py-3.5">
-                  <div class="text-xs text-gray-700 font-medium">04 Haz 2026</div>
-                  <div class="text-[11px] text-green-600 font-semibold mt-0.5">vaktı var</div>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-100 text-green-700">
+                    <i data-lucide="check" class="w-3 h-3"></i>Onaylandı
+                  </span>
                 </td>
-                <td class="px-3 py-3.5 text-xs text-gray-500">Bugün 12:30</td>
-                <td class="px-5 py-3.5 text-right">
-                  <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                  </button>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">09.06.2026</div>
+                  <div class="text-[11px] text-green-600 font-semibold">3 gün kaldı</div>
                 </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">03.06 — 09.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Bugün 10:45</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
               </tr>
+
+              <!-- Row 7 — Sipariş Riski (turuncu) -->
+              <tr class="bg-orange-50 hover:bg-orange-100 transition-colors" style="border-left: 4px solid #f97316;">
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">TX-558322</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Texas Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">David Moore</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Kolye Luxe</td>
+                <td class="px-3 py-3 text-xs text-gray-600">1</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-purple-100 text-purple-700">
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Kalıp
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-yellow-100 text-yellow-700">
+                    <i data-lucide="clock" class="w-3 h-3"></i>Beklemede
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">07.06.2026</div>
+                  <div class="text-[11px] text-orange-600 font-bold flex items-center gap-1">
+                    <i data-lucide="alert-triangle" class="w-3 h-3"></i>Sipariş Riski
+                  </div>
+                </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">05.06 — 07.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Dün 18:30</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-orange-200 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
+              </tr>
+
+              <!-- Row 8 -->
               <tr class="hover:bg-gray-50 transition-colors">
-                <td class="px-5 py-3.5 text-xs font-semibold text-gray-800">NY-458708</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">Michael Brown</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">1 Ürün</td>
-                <td class="px-3 py-3.5">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-teal-100 text-teal-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
-                    Teslim Edildi
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">CA-778922</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">California Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Jennifer Lee</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Bileklik Gold</td>
+                <td class="px-3 py-3 text-xs text-gray-600">1</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>Bekleyen
                   </span>
                 </td>
-                <td class="px-3 py-3.5">
-                  <div class="text-xs text-gray-700 font-medium">03 Haz 2026</div>
-                </td>
-                <td class="px-3 py-3.5 text-xs text-gray-500">Dün 16:45</td>
-                <td class="px-5 py-3.5 text-right">
-                  <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr class="hover:bg-gray-50 transition-colors bg-red-50/40">
-                <td class="px-5 py-3.5 text-xs font-semibold text-red-700">NY-458707</td>
-                <td class="px-3 py-3.5 text-xs text-red-600">Jessica Lee</td>
-                <td class="px-3 py-3.5 text-xs text-gray-600">2 Ürün</td>
-                <td class="px-3 py-3.5">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-red-100 text-red-700">
-                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                    Geciken (Süresi Aştı)
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-yellow-100 text-yellow-700">
+                    <i data-lucide="clock" class="w-3 h-3"></i>Beklemede
                   </span>
                 </td>
-                <td class="px-3 py-3.5">
-                  <div class="text-xs text-red-600 font-medium">31 May 2026</div>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">15.06.2026</div>
+                  <div class="text-[11px] text-green-600 font-semibold">9 gün kaldı</div>
                 </td>
-                <td class="px-3 py-3.5 text-xs text-gray-500">2 gün önce</td>
-                <td class="px-5 py-3.5 text-right">
-                  <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                  </button>
-                </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">07.06 — 15.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Dün 15:20</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
               </tr>
+
+              <!-- Row 9 -->
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">FL-112234</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Florida Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">James Wilson</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Küpe Set</td>
+                <td class="px-3 py-3 text-xs text-gray-600">3</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>Bekleyen
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-yellow-100 text-yellow-700">
+                    <i data-lucide="clock" class="w-3 h-3"></i>Onay Bekliyor
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">14.06.2026</div>
+                  <div class="text-[11px] text-green-600 font-semibold">8 gün kaldı</div>
+                </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">06.06 — 14.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Dün 14:00</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
+              </tr>
+
+              <!-- Row 10 -->
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-5 py-3 text-xs font-semibold text-gray-800 whitespace-nowrap">IL-334456</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Illinois Store</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Maria Garcia</td>
+                <td class="px-3 py-3 text-xs text-gray-600 whitespace-nowrap">Yüzük Özel</td>
+                <td class="px-3 py-3 text-xs text-gray-600">2</td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>Bekleyen
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-yellow-100 text-yellow-700">
+                    <i data-lucide="clock" class="w-3 h-3"></i>Onay Bekliyor
+                  </span>
+                </td>
+                <td class="px-3 py-3 whitespace-nowrap">
+                  <div class="text-xs font-medium text-gray-700">16.06.2026</div>
+                  <div class="text-[11px] text-green-600 font-semibold">10 gün kaldı</div>
+                </td>
+                <td class="px-3 py-3 text-[11px] text-gray-500 whitespace-nowrap">08.06 — 16.06</td>
+                <td class="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">Dün 11:30</td>
+                <td class="px-4 py-3 text-right"><button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 ml-auto"><i data-lucide="more-vertical" class="w-4 h-4"></i></button></td>
+              </tr>
+
             </tbody>
           </table>
-
-          <div class="px-5 py-3.5 border-t border-gray-100">
-            <a href="#" class="flex items-center gap-1.5 text-blue-600 text-xs font-semibold hover:text-blue-700">
-              Tüm Siparişleri Görüntüle
-              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
         </div>
 
-        <!-- Bottom Row: Chart + Warnings + Deadlines -->
-        <div class="grid grid-cols-3 gap-4">
-
-          <!-- Donut Chart -->
-          <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-            <h2 class="text-sm font-semibold text-gray-800 mb-4">Siparişlerin Durum Dağılımı</h2>
-            <div class="flex items-center gap-6">
-              <div class="relative w-32 h-32 flex-shrink-0">
-                <div class="w-full h-full rounded-full"
-                     style="background: conic-gradient(#14b8a6 0% 42%, #f97316 42% 74%, #22c55e 74% 89%, #ef4444 89% 92%, #e5e7eb 92% 100%)"></div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <div class="w-20 h-20 bg-white rounded-full flex flex-col items-center justify-center">
-                    <span class="text-xl font-bold text-gray-800">182</span>
-                    <span class="text-[10px] text-gray-500">Toplam</span>
-                  </div>
-                </div>
-              </div>
-              <div class="space-y-2 flex-1">
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-gray-600"><span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span>Teslim Edildi</span>
-                  <span class="font-semibold text-gray-800">42%</span>
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-gray-600"><span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>Üretimde</span>
-                  <span class="font-semibold text-gray-800">32%</span>
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-gray-600"><span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>Kargoda</span>
-                  <span class="font-semibold text-gray-800">15%</span>
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-gray-600"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>Geciken (Süresi Aştı)</span>
-                  <span class="font-semibold text-gray-800">3% · 4 sipariş</span>
-                </div>
-              </div>
-            </div>
+        <!-- Pagination -->
+        <div class="px-5 py-3.5 border-t border-gray-100 flex items-center justify-between">
+          <span class="text-xs text-gray-500">Toplam <span class="font-semibold text-gray-700">18</span> sipariş</span>
+          <div class="flex items-center gap-1">
+            <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button class="w-7 h-7 rounded-md text-xs font-semibold bg-blue-600 text-white">1</button>
+            <button class="w-7 h-7 rounded-md text-xs text-gray-600 hover:bg-gray-100">2</button>
+            <button class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
           </div>
-
-          <!-- Uyarılar -->
-          <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm flex flex-col">
-            <h2 class="text-sm font-semibold text-gray-800 mb-4">Uyarılar</h2>
-            <div class="space-y-2.5 flex-1">
-              <div class="flex items-center gap-3 p-3 bg-red-50 rounded-xl border-l-alarm border-red-500">
-                <span class="text-2xl font-bold text-red-600 leading-none" style="min-width:28px">4</span>
-                <span class="text-xs font-semibold text-red-700">Sipariş süresi aştı</span>
-              </div>
-              <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border-l-alarm border-orange-400">
-                <span class="text-2xl font-bold text-orange-500 leading-none" style="min-width:28px">11</span>
-                <span class="text-xs font-semibold text-orange-700">Sipariş riski (1-2 gün kaldı)</span>
-              </div>
-              <div class="flex items-center gap-3 p-3 bg-yellow-50 rounded-xl border-l-alarm border-yellow-400">
-                <span class="text-2xl font-bold text-yellow-500 leading-none" style="min-width:28px">2</span>
-                <span class="text-xs font-semibold text-yellow-700">Kargo gecikmesi var</span>
-              </div>
-            </div>
-            <a href="#" class="mt-4 flex items-center gap-1.5 text-blue-600 text-xs font-semibold hover:text-blue-700">
-              Tüm Uyarıları Görüntüle
-              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-
-          <!-- Yaklaşan Deadline'lar -->
-          <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-            <h2 class="text-sm font-semibold text-gray-800 mb-4">Yaklaşan Deadline'lar</h2>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between py-2 border-b border-gray-50">
-                <div>
-                  <div class="text-xs font-semibold text-gray-800">NY-458711</div>
-                  <div class="text-[11px] text-gray-500">Sarah Miller</div>
-                </div>
-                <div class="text-right">
-                  <div class="text-xs text-gray-700">06 Haz 2026</div>
-                  <div class="text-[11px] text-red-500 font-semibold">1 gün kaldı</div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between py-2 border-b border-gray-50">
-                <div>
-                  <div class="text-xs font-semibold text-gray-800">NY-458712</div>
-                  <div class="text-[11px] text-gray-500">John Doe</div>
-                </div>
-                <div class="text-right">
-                  <div class="text-xs text-gray-700">07 Haz 2026</div>
-                  <div class="text-[11px] text-orange-500 font-semibold">2 gün kaldı</div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between py-2 border-b border-gray-50">
-                <div>
-                  <div class="text-xs font-semibold text-gray-800">NY-458710</div>
-                  <div class="text-[11px] text-gray-500">David Wilson</div>
-                </div>
-                <div class="text-right">
-                  <div class="text-xs text-gray-700">05 Haz 2026</div>
-                  <div class="text-[11px] text-green-600 font-semibold">vaktı var</div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between py-2 border-b border-gray-50">
-                <div>
-                  <div class="text-xs font-semibold text-gray-800">NY-458705</div>
-                  <div class="text-[11px] text-gray-500">Anna Johnson</div>
-                </div>
-                <div class="text-right">
-                  <div class="text-xs text-gray-700">10 Haz 2026</div>
-                  <div class="text-[11px] text-green-600 font-semibold">5 gün kaldı</div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between py-2">
-                <div>
-                  <div class="text-xs font-semibold text-gray-800">NY-458704</div>
-                  <div class="text-[11px] text-gray-500">Robert Taylor</div>
-                </div>
-                <div class="text-right">
-                  <div class="text-xs text-gray-700">12 Haz 2026</div>
-                  <div class="text-[11px] text-green-600 font-semibold">7 gün kaldı</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <span class="text-xs text-gray-400">Sayfa 1 / 2</span>
         </div>
-
-        <div class="h-2"></div>
       </div>
-    </main>
-  </div><!-- /page-magaza-dashboard -->
 
-  <script>
-    function showPage(page) {
-      document.querySelectorAll('.page').forEach(el => el.classList.add('hidden'));
-      document.getElementById('page-' + page).classList.remove('hidden');
-      lucide.createIcons();
-    }
+      <div class="h-2"></div>
+    </div>
+  </main>
+</div><!-- /page-uretici-gelen -->
+
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
     lucide.createIcons();
-  </script>
+  }
+  lucide.createIcons();
+</script>
 </body>
 </html>
